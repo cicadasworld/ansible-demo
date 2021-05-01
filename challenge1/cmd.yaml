@@ -1,0 +1,9 @@
+- hosts: master
+  remote_user: root
+  become: yes
+  tasks:
+    - name: Curl Baidu
+      shell:
+        cmd: curl https://www.baidu.com
+      register: curl
+    - debug: var=curl.stdout_lines

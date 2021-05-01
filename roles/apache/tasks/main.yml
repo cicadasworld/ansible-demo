@@ -1,0 +1,21 @@
+---
+# tasks file for apache
+- name: Update all packages
+  yum:
+    name: '*'
+    state: latest
+- name: Install Apache
+  yum:
+    name: httpd
+    state: installed
+- name: Create The HTML File
+  shell: echo "Hello From The Ansible Challenge" > /var/www/html/index.html
+  args:
+    executable: /bin/bash
+  notify:
+    - Reload Apache
+- name: Public IP
+  shell:
+    cmd: curl http://192.168.33.51/
+  register: curl
+- debug: var=curl.stdout_lines
